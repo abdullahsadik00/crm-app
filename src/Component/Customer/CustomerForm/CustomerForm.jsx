@@ -1,23 +1,29 @@
-import React, {  useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Navbar from "../../Navbar/Navbar";
 
 const CustomerForm = () => {
   const [customer, setCustomer] = useState({});
-  const navigate = useNavigate()
+  const [readOnly, setReadOnly] = useState(false);
+  const navigate = useNavigate();
   // useParams allows access to route parameters.
   const { customerName } = useParams();
-  if (customerName) {
-    fetch("http://localhost:4000/api/customer")
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        let result = res.find((c) => c.name === customerName);
-        if (result) {
-          setCustomer(result);
-        }
-      });
-  }
+  console.log(customerName);
+  useEffect(() => {
+    if (customerName) {
+      fetch("http://localhost:4000/api/customer")
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          let result = res.find((c) => c.name === customerName);
+          if (result) {
+            setCustomer(result);
+            setReadOnly(true);
+          }
+        });
+    }
+  }, []);
 
   function handleSubmit() {
     console.log(customer);
@@ -36,20 +42,41 @@ const CustomerForm = () => {
         navigate("/");
       });
   }
+  function handleUpdate() {
+    fetch("http://localhost:4000/api/customer", {
+      method: "PUT",
+      body: JSON.stringify(customer),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        navigate("/");
+      });
+    console.log(customer);
+  }
   return (
-    <div className="container">
+    <div>
+      <Navbar/>
+      <div className="container">
       <div className="mb-3">
         <label htmlFor="exampleFormControlInput1" className="form-label">
           Name
         </label>
         <input
-          type="text"
+          readOnly={readOnly}
           value={customer.name}
-          className="form-control"
-          onChange={(e) => {
-            customer.name = e.currentTarget.value;
-            setCustomer(customer);
+          onInput={(e) => {
+            let obj = { ...customer };
+            obj.name = e.target.value;
+            setCustomer(obj);
           }}
+          type="text"
+          className="form-control"
         ></input>
       </div>
       <div className="mb-3">
@@ -57,14 +84,12 @@ const CustomerForm = () => {
           Website
         </label>
         <input
-          type="text"
           value={customer.website}
-
-          className="form-control"
-          onChange={(e) => {
-            customer.website = e.currentTarget.value;
-            setCustomer(customer);
+          onInput={(e) => {
+            setCustomer({ ...customer, website: e.target.value });
           }}
+          type="text"
+          className="form-control"
         ></input>
       </div>
       <div className="mb-3">
@@ -72,14 +97,14 @@ const CustomerForm = () => {
           Turnover
         </label>
         <input
-          type="number"
           value={customer.turnover}
-
-          className="form-control"
-          onChange={(e) => {
-            customer.turnover = e.currentTarget.value;
-            setCustomer(customer);
+          onInput={(e) => {
+            let obj = { ...customer };
+            obj.turnover = e.target.value;
+            setCustomer(obj);
           }}
+          type="number"
+          className="form-control"
         ></input>
       </div>
       <div className="mb-3">
@@ -87,14 +112,14 @@ const CustomerForm = () => {
           No Of Employees
         </label>
         <input
+          value={customer.employees}
+          onInput={(e) => {
+            let obj = { ...customer };
+            obj.employees = e.target.value;
+            setCustomer(obj);
+          }}
           type="number"
           className="form-control"
-          value={customer.employees}
-
-          onChange={(e) => {
-            customer.employees = e.currentTarget.value;
-            setCustomer(customer);
-          }}
         ></input>
       </div>
       <div className="mb-3">
@@ -102,14 +127,14 @@ const CustomerForm = () => {
           CEO
         </label>
         <input
+          value={customer.ceo}
+          onInput={(e) => {
+            let obj = { ...customer };
+            obj.ceo = e.target.value;
+            setCustomer(obj);
+          }}
           type="text"
           className="form-control"
-          value={customer.ceo}
-
-          onChange={(e) => {
-            customer.ceo = e.currentTarget.value;
-            setCustomer(customer);
-          }}
         ></input>
       </div>
       <div className="mb-3">
@@ -117,23 +142,34 @@ const CustomerForm = () => {
           Established In
         </label>
         <input
-          type="number"
-          value={customer.established}
-
-          className="form-control"
-          onChange={(e) => {
-            customer.established = e.currentTarget.value;
-            setCustomer(customer);
+          value={customer.year}
+          onInput={(e) => {
+            let obj = { ...customer };
+            obj.year = e.target.value;
+            setCustomer(obj);
           }}
+          type="number"
+          className="form-control"
         ></input>
       </div>
-      <button
-        className="btn btn-primary float-end"
-        type="button"
-        onClick={handleSubmit}
-      >
-        Create New Customer
-      </button>
+      {!customerName ? (
+        <button
+          onClick={handleSubmit}
+          className="btn btn-primary float-end"
+          type="button"
+        >
+          Create New Customer
+        </button>
+      ) : (
+        <button
+          onClick={handleUpdate}
+          className="btn btn-primary float-end"
+          type="button"
+        >
+          Update New Customer
+        </button>
+      )}
+    </div>
     </div>
   );
 };
