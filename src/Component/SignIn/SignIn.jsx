@@ -3,34 +3,34 @@ import { useNavigate } from "react-router-dom";
 import "./SignIn.css";
 const SignIn = () => {
   const [credential, setCredential] = useState({});
-  const [invalidCredential,setInvalidCredential] = useState(false)
+  const [invalidCredential, setInvalidCredential] = useState(false);
   const navigate = useNavigate();
   const handleSubmit = () => {
     console.log(credential);
     setInvalidCredential(false);
-    fetch("http://localhost:4000/api/user/signin",{
-      method:"POST",
-      body:JSON.stringify(credential),
-      headers:{
-        'Content-Type':'application/json'
-      }
-    }).then(
-      (res)=>{
+    fetch("http://localhost:4000/api/user/signin", {
+      method: "POST",
+      body: JSON.stringify(credential),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
         console.log(res);
-        if(res.status==400){
+        if (res.status === 400) {
           setInvalidCredential(true);
-        }else if(res.status==200){
+        } else if (res.status === 200) {
           console.log("200");
-          localStorage.setItem("loggedIn","true")
+          localStorage.setItem("loggedIn", "true");
           navigate("/");
         }
-      }
-    ).catch(err=>{
-      // server errors
-      console.log(err);
-    });
-  }
-    return (
+      })
+      .catch((err) => {
+        // server errors
+        console.log(err);
+      });
+  };
+  return (
     <div className="signincontainer">
       <div className="left">
         <img
@@ -41,12 +41,11 @@ const SignIn = () => {
       <div className="right">
         <h3 className="mb-3 ">Please login.</h3>
         <hr className="header"></hr>
-        {
-          invalidCredential && 
-        <div class="alert alert-danger" role="alert">
-          Invalid Credentials.
-        </div>
-        }
+        {invalidCredential && (
+          <div class="alert alert-danger" role="alert">
+            Invalid Credentials.
+          </div>
+        )}
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Enter Your Email

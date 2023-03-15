@@ -151,7 +151,28 @@ const CustomerForm = () => {
           type="number"
           className="form-control"
         ></input>
+        
       </div>
+      <div className="mb-3">
+          <label htmlFor="exampleFormControlInput1" className="form-label">
+            Status
+          </label>
+          <select 
+            onChange={
+              (e)=>{
+                let obj = { ...customer };
+                obj.status = e.target.value;
+                setCustomer(obj);
+              }
+            }
+          className="form-select">
+            <option selected>Open this select menu</option>
+            <option value="New">New</option>
+            <option value="Accepted">Accepted</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+
       {!customerName ? (
         <button
           onClick={handleSubmit}

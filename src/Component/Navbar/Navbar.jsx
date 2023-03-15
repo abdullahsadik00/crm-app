@@ -7,7 +7,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const value = localStorage.getItem("loggedIn");
-    if (value && value == "true") {
+    if (value && value === "true") {
       setLoggedInStatus(true);
     } else {
       setLoggedInStatus(false);
@@ -24,6 +24,9 @@ const Navbar = () => {
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           Home
+        </a>
+        <a className="navbar-brand" href="/users">
+          User
         </a>
         <button
           className="navbar-toggler"
