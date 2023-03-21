@@ -1,27 +1,43 @@
 
-
 .container{
     margin-top: 36px !important;
 }
 
 .st_green{
-    color: white;
-    background-color: #198754 !important;
+    color: #0d6832;
+    background-color: #d6f0e0 !important;
+    border: none;
+    border-radius: 8px;
+
 }
 
 .st_red{
-    color: white;
-    background-color: #dc3545 !important;
+    color: #9a0505;
+    background-color: #f5c8c8 !important;
+    border: none;
+    border-radius: 8px;
+
 }
 
 .st_blue{
-    color: white;
+    color: #2c58a0;
     border-radius: 8px;
-    margin: 0;
-    width: 50px;
-    padding: 0;
-    background-color: #0d6efd !important;
+    border: none;
+    background-color: #dfe7f6 !important;
 }
+.st_yellow{
+    color: #ffc107;
+    border-radius: 8px;
+    border: none;
+    background-color: #f5f6df !important;
+}
+.st_purple{
+color: #6366F1;
+border-radius: 8px;
+border: none;
+background-color: #dfe7f6 !important;
+}
+
 
 .table-header{
     display: flex;
@@ -44,4 +60,7 @@
     border: 1px solid lightblue;
     border-radius: 50px;
     padding: 6px 12px;
+}
+.margin-right{
+    margin-right: 10px;
 }

@@ -25,3 +25,7 @@ commit d1819f => Fix the bug and Update form
 
 1. Add delete button in the CustomerList 
 2. onDelete delete the data and rerender the ui
+
+https://pro.chakra-ui.com/components/e-commerce/checkout-pages
+https://pro.chakra-ui.com/components/e-commerce/shopping-carts
+https://chakra-templates.dev/page-sections/hero

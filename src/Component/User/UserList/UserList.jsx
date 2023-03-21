@@ -1,48 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import Navbar from "../../Navbar/Navbar";
 import "./UserList.css";
 const UserList = () => {
-  // state is storage which when changes,
-  // refreshes component.
-  const [users, setUsers] = useState([]);
+  // state is storage which when changes, 
+    // refreshes component.
+    const [users, setUsers]=useState([]);
+    const navigate = useNavigate()
+    useEffect(()=>{
+        // call api to get data.
+        fetch(process.env.REACT_APP_APIURL+"user")
+            .then(
+                // convert data to json format.
+                res => res.json()
+            ).then((parsedResult)=>{
+                // update state with data.
+                setUsers(parsedResult);
+            })
+    },[]);
 
-  useEffect(() => {
-    // call api to get data.
-    fetch("http://localhost:4000/api/user")
-      .then(
-        // convert data to json format.
-        (res) => res.json()
-      )
-      .then((parsedResult) => {
-        // update state with data.
-        setUsers(parsedResult);
-      });
-  }, []);
+    function handleActivateClick(username){
+      fetch(process.env.REACT_APP_APIURL+"user/activate/"+username, {
+        method:"PUT"
+      }).then(res=> res.json())
+          .then(parsedResponse => setUsers(parsedResponse));
+    }
 
-  function handleActivateClick(username) {
-    fetch("http://localhost:4000/api/user/activate/" + username, {
-      method: "PUT",
-    })
-      .then((res) => res.json())
-      .then((parsedResponse) => setUsers(parsedResponse));
-  }
+    function handleDeActivateClick(username){
+      fetch(process.env.REACT_APP_APIURL+"user/deactivate/"+username, {
+        method:"PUT"
+      }).then(res=> res.json())
+          .then(parsedResponse => setUsers(parsedResponse));
+    }
 
-  function handleDeActivateClick(username) {
-    fetch("http://localhost:4000/api/user/deactivate/" + username, {
-      method: "PUT",
-    })
-      .then((res) => res.json())
-      .then((parsedResponse) => setUsers(parsedResponse));
-  }
 
   return (
     <div>
       <Navbar />
       <div className="container">
-        <a href="/userForm" className="btn btn-success">
+        <button onClick={navigate("/userForm")} className="btn btn-success">
           New User
-        </a>
+        </button>
         <table className="table">
           <thead>
             <tr>
@@ -57,7 +55,7 @@ const UserList = () => {
           <tbody>
             {users.map((user,index) => (
               <tr key={index}>
-                <td scope="row">{user.name}</td>
+                <td >{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.username}</td>
                 <td className="activeStatus">

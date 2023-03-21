@@ -2,28 +2,32 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 const SignUp = () => {
-    const [user, setUser] = useState({});
-    const navigate = useNavigate();
-  
-    function handleRegister() {
-      console.log(user);
-      fetch("http://localhost:4000/api/user/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+
+  function handleRegister() {
+    // console.log(user);
+    // fetch returns a promise.
+    fetch(process.env.REACT_APP_APIURL + "user/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => {
+        // request is completed.
+        // console.log(res);
+        navigate("/signin");
       })
-        .then((res) => {
-          console.log(res);
-          navigate("/signin");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+      .catch((err) => {
+        // request has some errors.
+        // console.log(err);
+      });
+  }
   return (
-    <div className="signup-container">      <div className="left">
+    <div className="signup-container">
+      <div className="left">
         <img
           src="https://img.freepik.com/premium-vector/crm-icons-customer-relationship-management-vector-infographics-template_116137-3703.jpg"
           alt=""
@@ -69,7 +73,8 @@ const SignUp = () => {
           onClick={handleRegister}
           className="btn btn-success float-end"
           type="button"
-          value="Register"></input>
+          value="Register"
+        ></input>
       </div>
     </div>
   );
