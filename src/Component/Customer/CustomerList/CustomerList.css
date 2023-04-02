@@ -64,3 +64,32 @@ background-color: #dfe7f6 !important;
 .margin-right{
     margin-right: 10px;
 }
+.row{
+    justify-content: space-around;
+}
+@media only screen and (max-width: 780px) {
+    .signincontainer{
+        flex-direction: column;
+    }.left,
+    .right {
+        width: 100%;
+    }
+    .right{
+        border: 0;
+    }
+    .right h3{
+        text-align: center;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .table-header{
+        flex-direction: column;
+        align-items: center;
+    }
+    .table-header button {
+        margin: 10px 0;
+    }
+}
+.table tbody tr td button {
+    margin: 10px;
+}

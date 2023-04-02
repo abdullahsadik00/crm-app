@@ -27,3 +27,22 @@
 img{
     width: 70%;
 }
+@media only screen and (max-width: 780px) {
+    .signup-container{
+        flex-direction: column;
+    }.left,
+    .right {
+        width: 100%;
+    }
+    .right{
+        border: 0;
+    }
+    .right h3{
+        text-align: center;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .signup-container{
+        margin: 20px !important;
+    }
+}

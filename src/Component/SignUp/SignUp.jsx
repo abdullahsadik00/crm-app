@@ -6,7 +6,6 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   function handleRegister() {
-    // console.log(user);
     // fetch returns a promise.
     fetch(process.env.REACT_APP_APIURL + "user/signup", {
       method: "POST",
@@ -16,13 +15,9 @@ const SignUp = () => {
       body: JSON.stringify(user),
     })
       .then((res) => {
-        // request is completed.
-        // console.log(res);
         navigate("/signin");
       })
       .catch((err) => {
-        // request has some errors.
-        // console.log(err);
       });
   }
   return (

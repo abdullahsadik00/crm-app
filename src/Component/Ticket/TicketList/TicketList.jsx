@@ -69,7 +69,8 @@ const TicketList = () => {
             </svg>
           </div>
         </div>
-        <table className="table">
+<div style={{overflowX:"auto"}}>
+<table className="table">
           <thead>
             <tr>
               <th scope="col">Customer</th>
@@ -109,6 +110,7 @@ const TicketList = () => {
             ))}
           </tbody>
         </table>
+</div>
       </div>
     </div>
   );

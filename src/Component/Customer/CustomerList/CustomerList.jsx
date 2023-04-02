@@ -111,61 +111,61 @@ const CustomerList = () => {
           </div>
         )}
         {filteredCustomers.length > 0 && (
-          <table className="table table-responsive">
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Website</th>
-                <th scope="col">Turnover</th>
-                <th scope="col">Status</th>
-                <th scope="col">Number Of Emp</th>
-                <th scope="col">CEO</th>
-                <th scope="col">Established Year</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* rendering data in table rows. */}
-              {filteredCustomers.map((c, i) => (
-                <tr key={i}>
-                  <td>{c.name}</td>
-                  <td>{c.website}</td>
-                  <td>{c.turnover}</td>
-                  <td>
-                    <button
-                      className={
-                        c.status === "New"
-                          ? "st_blue"
-                          : c.status === "Accepted"
-                          ? "st_green"
-                          : "st_red"
-                      }
-                    >
-                      {c.status}
-                    </button>
-                  </td>
-                  <td>{c.employees}</td>
-                  <td>{c.ceo}</td>
-                  <td>{c.year}</td>
-                  <td>
-                    <button
-                      onClick={() => handleEdit(c.name)}
-                      className="btn btn-warning margin-right"
-                    >
-                      Edit
-                    </button>
+          <div style={{overflowX:"auto"}}><table className="table table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Website</th>
+              <th scope="col">Turnover</th>
+              <th scope="col">Status</th>
+              <th scope="col">Number Of Emp</th>
+              <th scope="col">CEO</th>
+              <th scope="col">Established Year</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* rendering data in table rows. */}
+            {filteredCustomers.map((c, i) => (
+              <tr key={i}>
+                <td>{c.name}</td>
+                <td>{c.website}</td>
+                <td>{c.turnover}</td>
+                <td>
+                  <button
+                    className={
+                      c.status === "New"
+                        ? "st_blue"
+                        : c.status === "Accepted"
+                        ? "st_green"
+                        : "st_red"
+                    }
+                  >
+                    {c.status}
+                  </button>
+                </td>
+                <td>{c.employees}</td>
+                <td>{c.ceo}</td>
+                <td>{c.year}</td>
+                <td>
+                  <button
+                    onClick={() => handleEdit(c.name)}
+                    className="btn btn-warning margin-right"
+                  >
+                    Edit
+                  </button>
 
-                    <button
-                      onClick={() => handleDelete(c.name)}
-                      className="btn btn-danger"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  <button
+                    onClick={() => handleDelete(c.name)}
+                    className="btn btn-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table></div>
         )}
         <nav aria-label="Page navigation example">
           <ul className="pagination justify-content-center">
